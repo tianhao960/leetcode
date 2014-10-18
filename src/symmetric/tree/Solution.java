@@ -1,8 +1,5 @@
 package symmetric.tree;
 
-import java.util.LinkedList;
-import java.util.List;
-
 class TreeNode {
     int val;
     TreeNode left;
@@ -15,36 +12,21 @@ public class Solution {
     public boolean isSymmetric(TreeNode root) {
 
         if(root==null) return true;
-        List<Integer> leftFirst = new LinkedList<Integer>();
-        List<Integer> rightFirst = new LinkedList<Integer>();
-        travel(root,leftFirst,true);
-        travel(root,rightFirst,false);
+        return isSymmetric(root.left,root.right);
 
-        return checkSame(leftFirst,rightFirst);
     }
 
-    private void travel(TreeNode root,List<Integer> list,boolean leftFirst){
-        if(root!=null){
-            TreeNode first,second;
-            if(leftFirst){
-                first = root.left;
-                second = root.right;
-            }else{
-                first = root.right;
-                second = root.left;
-            }
 
-            travel(first,list,leftFirst);
-            list.add(root.val);
-            travel(second,list,leftFirst);
+    private boolean isSymmetric(TreeNode left, TreeNode right){
+        if(left == null && right == null) return true;
+        else if(left!=null && right!=null){
+            if(left.val!=right.val) return false;
+            return isSymmetric(left.left,right.right) && isSymmetric(left.right,right.left);
+        }else{
+            return false;
         }
     }
 
-    private boolean checkSame(List<Integer> leftFirst,List<Integer> rightFirst){
-        for(int i=0;i<leftFirst.size();i++){
-            if(!leftFirst.get(i).equals(rightFirst.get(i))) return false;
-        }
-        return true;
-    }
+
 
 }
