@@ -28,5 +28,6 @@ public class Solution {
             if(A[right] == target) return right;
             return -1;
         }
+        return -1;
     }
 }
